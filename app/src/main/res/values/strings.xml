@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Beat Addiction</string>
+
+    <string name="new_message_notification_title_template">New message: %1$s</string>
+
+    <string name="action_share">Share</string>
+    <string name="action_reply">Reply</string>
+    <string name="save">SAVE</string>
+
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
+    android:padding="3dp">
+
+    <ImageView
+        android:id="@+id/list_app_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"/>
+
+    <TextView
+        android:id="@+id/list_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:text="App Name"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/isUsageExceeded"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/warning" />
+
+    <TextView
+        android:id="@+id/isTracked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:text="TRACKING"
+        android:textColor="#2E6F31"
+        android:visibility="invisible" />
+
+</LinearLayout>
