@@ -46,9 +46,6 @@ public class BackgroundService extends JobIntentService {
                 int allowedTime = trackedAppInfo.getTimeAllowed();
                 int isUsageExceeded = trackedAppInfo.getIsUsageExceeded();
 
-                System.out.println(usageTime);
-                System.out.println(allowedTime);
-                System.out.println(isUsageExceeded);
                 if(usageTime > allowedTime && isUsageExceeded == 0) {
                     try {
                         dbHelper.setIsUsageExceeded(packageName);
