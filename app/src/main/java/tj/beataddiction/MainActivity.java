@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         appListView = findViewById(R.id.app_list);
 
-        Alarms.resetIsUsageExceededData(this);
+        Alarms.resetIsUsageExceededData(getApplicationContext());
         startBackgroundService();
 
         openDialog();
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startBackgroundService() {
         if(Utils.isUsageAccessAllowed(this)) {
-            Alarms.scheduleNotification(this);
+            Alarms.scheduleNotification(getApplicationContext());
         }
         else {
             Intent usageAccessIntent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);

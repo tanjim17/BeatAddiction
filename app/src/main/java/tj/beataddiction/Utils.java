@@ -66,13 +66,15 @@ class Utils {
             }
         }
 
-        UsageEvents.Event lastEvent = allEvents.get(allEvents.size() - 1);
-        if(lastEvent.getEventType() == UsageEvents.Event.ACTIVITY_RESUMED) {
-            int diff = (int)System.currentTimeMillis() - (int)lastEvent.getTimeStamp();
-            diff /= 1000;
-            Integer prev = appUsageMap.get(lastEvent.getPackageName());
-            if(prev == null) prev = 0;
-            appUsageMap.put(lastEvent.getPackageName(), prev + diff);
+        if(allEvents.size() != 0) {
+            UsageEvents.Event lastEvent = allEvents.get(allEvents.size() - 1);
+            if (lastEvent.getEventType() == UsageEvents.Event.ACTIVITY_RESUMED) {
+                int diff = (int) System.currentTimeMillis() - (int) lastEvent.getTimeStamp();
+                diff /= 1000;
+                Integer prev = appUsageMap.get(lastEvent.getPackageName());
+                if (prev == null) prev = 0;
+                appUsageMap.put(lastEvent.getPackageName(), prev + diff);
+            }
         }
 
         return appUsageMap;
