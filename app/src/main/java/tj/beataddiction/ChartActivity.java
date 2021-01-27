@@ -31,10 +31,6 @@ public class ChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-        if(!Utils.isUsageAccessAllowed(this)) {
-            Toast.makeText(getApplicationContext(), "You need to give usage access!", Toast.LENGTH_LONG).show();
-        }
-
         packageName = getIntent().getStringExtra("packageName");
         appName = getIntent().getStringExtra("appName");
 

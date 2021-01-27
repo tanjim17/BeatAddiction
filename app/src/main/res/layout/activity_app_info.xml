@@ -20,9 +20,6 @@
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher" />
@@ -33,11 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="23dp"
-            android:layout_marginEnd="8dp"
             android:text="App Name"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/list_app_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,28 +77,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:text="Daily time allowed"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stop" />
+            app:layout_constraintTop_toBottomOf="@+id/minute2" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="8dp"
             android:text="Time spent today"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.451"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save" />
+            app:layout_constraintTop_toBottomOf="@+id/list_app_icon" />
 
         <TextView
             android:id="@+id/hour2"
@@ -149,30 +145,27 @@
             android:id="@+id/show_chart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="Show Chart"
             android:backgroundTint="#00BCD4"
+            android:text="Show Chart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_app_icon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#E91E63"
+            android:backgroundTint="#E91E2F"
             android:text="Stop Tracking"
+            android:textColor="#FFFFFF"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_app_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/hour1" />
 
         <TextView
             android:id="@+id/textView"
@@ -246,14 +239,12 @@
             android:id="@+id/isUsageExceeded"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="8dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/save"
+            app:layout_constraintTop_toBottomOf="@+id/list_app_icon"
             app:srcCompat="@drawable/warning" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

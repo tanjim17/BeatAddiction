@@ -94,11 +94,6 @@ public class MainActivity extends AppCompatActivity {
         if(Utils.isUsageAccessAllowed(this)) {
             Alarms.scheduleNotification(getApplicationContext());
         }
-        else {
-            Intent usageAccessIntent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-            startActivityForResult(usageAccessIntent, LAUNCH_SETTINGS_ACTIVITY);
-            Toast.makeText(getApplicationContext(), "You need to give usage access!", Toast.LENGTH_LONG).show();
-        }
     }
 
     private void openDialog() {
@@ -117,34 +112,20 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("IMPORTANT!")
-                .setMessage("You might not get usage notifications after reboot if your device is " +
-                        "from certain manufacturers(eg. Xiaomi). To solve this issue, you can either " +
+                .setMessage("You might not get usage notifications after reboot. To solve this issue, you can either " +
                         "give auto start permission for this app manually from settings or launch " +
-                        "this app at least once after reboot.")
+                        "this app at least once after reboot. That's all :)")
                 .setView(checkBoxView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                });
+                })
+                .setCancelable(false);
 
         if(sharedPreferences.getBoolean("openDialog", true)) {
             builder.show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == LAUNCH_SETTINGS_ACTIVITY) {
-            if(Utils.isUsageAccessAllowed(this)) {
-                Alarms.scheduleNotification(this);
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "You need to give usage access!", Toast.LENGTH_LONG).show();
-            }
         }
     }
 

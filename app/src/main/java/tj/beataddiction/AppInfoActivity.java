@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 
 public class AppInfoActivity extends AppCompatActivity {
     private static final String TAG = "AppInfoActivity";
+    private static final int LAUNCH_SETTINGS_ACTIVITY = 1;
     private DatabaseHelper dbHelper;
     private String packageName;
     private String appName;
@@ -44,7 +46,7 @@ public class AppInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app_info);
 
         if(!Utils.isUsageAccessAllowed(this)) {
-            Toast.makeText(getApplicationContext(), "You need to give usage access!", Toast.LENGTH_LONG).show();
+            openUsageDialog();
         }
 
         packageName = getIntent().getStringExtra("packageName");
@@ -77,7 +79,7 @@ public class AppInfoActivity extends AppCompatActivity {
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openDialog();
+                    openTrackingDialog();
                 }
             });
         }
@@ -178,11 +180,33 @@ public class AppInfoActivity extends AppCompatActivity {
         if(editedTimeAllowed > getTimeSpent()) {
             dbHelper.resetIsUsageExceeded(packageName);
         }
-        Toast.makeText(getApplicationContext(),"Changes Saved",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Changes Saved!",Toast.LENGTH_LONG).show();
         finish();
     }
 
-    private void openDialog() {
+    private void openUsageDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Usage Access Needed :(")
+                .setMessage("You need to give usage access to this app to see usage data of your apps. " +
+                        "Click \"Go To Settings\" and then give the access :)")
+                .setPositiveButton("Go To Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent usageAccessIntent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                        startActivityForResult(usageAccessIntent, LAUNCH_SETTINGS_ACTIVITY);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false);
+        builder.show();
+    }
+
+    private void openTrackingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Do you want to stop tracking this app?")
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -198,8 +222,20 @@ public class AppInfoActivity extends AppCompatActivity {
                         dialog.dismiss();
                         finish();
                     }
-                });
+                })
+                .setCancelable(false);
         builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_SETTINGS_ACTIVITY) {
+            if(Utils.isUsageAccessAllowed(this)) {
+                Alarms.scheduleNotification(this);
+            }
+        }
     }
 
     @Override

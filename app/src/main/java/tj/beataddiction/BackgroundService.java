@@ -1,5 +1,6 @@
 package tj.beataddiction;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -13,6 +14,7 @@ import androidx.core.app.JobIntentService;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BackgroundService extends JobIntentService {
     private DatabaseHelper dbHelper;
@@ -36,6 +38,10 @@ public class BackgroundService extends JobIntentService {
         long endTime = beginTime + Utils.DAY_IN_MILLIS;
         HashMap<String, Integer> appUsageMap = Utils.getTimeSpent(this, null, beginTime, endTime);
 
+        String currentRunningPackageName = null;
+        List<String> list = appUsageMap.keySet().stream().filter(s -> s.startsWith("current")).collect(Collectors.toList());
+        if(list.size() > 0) {currentRunningPackageName = list.get(0).replaceFirst("current", "");}
+
         for(int i = 0; i < trackedAppInfos.size(); i++) {
             TrackedAppInfo trackedAppInfo = trackedAppInfos.get(i);
             String packageName = trackedAppInfo.getPackageName();
@@ -46,7 +52,8 @@ public class BackgroundService extends JobIntentService {
                 int allowedTime = trackedAppInfo.getTimeAllowed();
                 int isUsageExceeded = trackedAppInfo.getIsUsageExceeded();
 
-                if(usageTime > allowedTime && isUsageExceeded == 0) {
+                if((usageTime > allowedTime && isUsageExceeded == 0) ||
+                        (isUsageExceeded == 1 && packageName.equals(currentRunningPackageName))) {
                     try {
                         dbHelper.setIsUsageExceeded(packageName);
                         String appName = (String) getPackageManager()
