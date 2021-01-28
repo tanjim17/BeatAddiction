@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.util.Calendar;
+import android.media.RingtoneManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -78,7 +79,8 @@ public class BackgroundService extends JobIntentService {
                 .setContentTitle(appName + " usage exceeded!")
                 .setContentText("Close your app now!")
                 .setSmallIcon(R.drawable.warning)
-                .setPriority(Notification.PRIORITY_MAX);
+                .setPriority(Notification.PRIORITY_MAX)
+                .setSound(RingtoneManager. getDefaultUri (RingtoneManager. TYPE_NOTIFICATION));
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(id, builder.build());
     }
