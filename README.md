@@ -10,4 +10,4 @@ Android 7.0 Nougat
 
 
 ### Installation
-You can download apk from [here](https://github.com/tanjim17/BeatAddiction/releases/download/v1.3/beat_addiction_v1.3.apk).
+You can download apk from [here](https://github.com/tanjim17/BeatAddiction/releases/download/v1.4/beat_addiction_v1.4.apk).
